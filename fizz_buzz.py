@@ -8,6 +8,9 @@
 # Copyright:   (c) jforeman 2015
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
+import sys, traceback
+
+#-------------------------------------------------------------------------------
 def fizzbuzz(x=None,
              y=None,
              n=None):
@@ -29,20 +32,19 @@ def fizzbuzz(x=None,
             i += 1
         print ' '.join(list1)
     except:
-        pass
-
-#-------------------------------------------------------------------------------
-def main():
-    input = raw_input("File")
-    with open(input, "r") as f:
-        for i in f:
-            list1 = [ str(x) for x in i.split(' ') ]
-            list2 = map(lambda s: s.strip(), list1)
-            x = int(list2[0])
-            y = int(list2[1])
-            n = int(list2[2])
-            fizzbuzz(x,y,n)
+        traceback.print_exc(file=sys.stdout)
 
 #-------------------------------------------------------------------------------
 if __name__ == '__main__':
-    main()
+    test_cases = open(sys.argv[1], 'r')
+
+    for test in test_cases:
+        list1 = [ str(x) for x in test.split(' ') ]
+        list2 = map(lambda s: s.strip(), list1)
+        x = int(list2[0])
+        y = int(list2[1])
+        n = int(list2[2])
+        fizzbuzz(x,y,n)
+
+    test_cases.close()
+    sys.exit(0)
